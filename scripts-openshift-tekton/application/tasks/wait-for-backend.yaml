@@ -44,14 +44,6 @@ spec:
           if [ -z "$ROUTE_CATALOG" ]
           then
             echo service-catalog-quarkus-reactive is NOT available
-          else
-            if [ -z "$ROUTE_MONOLITH" ]
-            then
-              echo monolith-open-liberty-cloud-native is NOT available
-            else
-              echo service-catalog-quarkus-reactive and monolith-open-liberty-cloud-native are available
-              break
-            fi
           fi  
 
           if [ "$ITERATION" -ge "$MAX_ITERATIONS" ]; 
