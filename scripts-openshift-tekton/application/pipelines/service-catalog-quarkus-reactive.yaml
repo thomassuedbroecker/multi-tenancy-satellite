@@ -27,7 +27,7 @@ spec:
     - name: url
       value: $(params.repo-url)
     - name: revision
-      value: master
+      value: main
   - name: wait-for-infra
     taskRef:
       name: wait-for-infrastructure

@@ -27,7 +27,7 @@ spec:
     - name: url
       value: $(params.repo-url)
     - name: revision
-      value: master
+      value: main
   - name: prep-storefront-mf-messaging
     taskRef:
       name: prep-storefront-mf-messaging
