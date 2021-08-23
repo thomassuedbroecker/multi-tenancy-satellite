@@ -44,6 +44,9 @@ spec:
           if [ -z "$ROUTE_CATALOG" ]
           then
             echo service-catalog-quarkus-reactive is NOT available
+          else
+            echo service-catalog-quarkus-reactive is available
+            break            
           fi  
 
           if [ "$ITERATION" -ge "$MAX_ITERATIONS" ]; 
