@@ -2,14 +2,31 @@
   <div>
   <div style="display: flex;flex-direction: row;">
     <div id="app" style="order: 1;flex-grow: 2;max-width: 300px;width:300px">
-     <mwc-top-app-bar-fixed>
-      <div slot="title">Electronic and Movie Depot</div>
+    <!-- Headerline -->
+    <mwc-top-app-bar-fixed>
+       <!-- <div slot="title">Electronic and Movie Depot <md-icon class="md-size-x">verified_user</md-icon></div> -->  
+       
+       <div slot="title">
+        <md-menu md-size="big">
+            <md-button md-size="big" md-menu-trigger style="color:white;">Electronic and Movie Depot</md-button>
+        </md-menu>
+        
+        <md-menu md-size="small" v-if="isAuthenticated == true">
+            <md-button md-size="small" md-menu-trigger style="color:white;">{{ getUserName() }}<md-icon class="md-size-x">verified_user</md-icon></md-button>
+            <md-menu-content>
+              <md-menu-item v-on:click="onLogoutClicked()">Logout</md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    
+       </div>
+              
     </mwc-top-app-bar-fixed>
- 
+    
+    <!-- Content -->
     <md-app>
       <md-app-drawer md-permanent="full" style="width: 240px;">
         <br>
-        <md-list>
+        <md-list v-if="isAuthenticated == true">
           <md-list-item to="/catalog" exact>
             <md-icon style="margin-right: 10px;">explore</md-icon>
             <span class="md-list-item-text">Catalog</span>
@@ -50,10 +67,10 @@
       </md-app-drawer>
     </md-app>
     </div>
-    <div id="catalog" style="order: 2; flex-grow: 10;left: 320px;position: fixed;">
+    <div id="catalog" style="order: 2; flex-grow: 10;left: 320px;position: fixed;" v-if="isAuthenticated == true">
     <Catalog></Catalog>
     </div>
-    <div id="order" style="order: 2; flex-grow: 10;left: 320px;position: fixed;"></div>
+    <div id="order" style="order: 2; flex-grow: 10;left: 320px;position: fixed;" v-if="isAuthenticated == true"></div>
     <div id="account" style="order: 2; flex-grow: 10;left: 320px;position: fixed;"></div>
   </div>
   </div>
@@ -68,6 +85,11 @@ export default {
   name: "app",
   components: {
     Catalog
+  },
+  computed: {
+    isAuthenticated() {
+      return this.$store.state.user.isAuthenticated;
+    }
   },
   data() {
     return {
@@ -111,6 +133,12 @@ export default {
       });
   },
   methods: {
+    onLogoutClicked(){
+      this.$store.commit("logout");
+    },
+    getUserName() {
+      return this.$store.state.user.name;
+    },
     loadProducts (categoryId, categoryName) {
       let commandId = Date.now();
       let message = {

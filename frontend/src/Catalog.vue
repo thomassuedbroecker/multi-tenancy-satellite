@@ -60,7 +60,10 @@ export default {
       selectedProductId: ""
     };
   },
-  computed: {    
+  computed: {
+    isAuthenticated() {
+      return this.$store.state.user.isAuthenticated;
+    }    
   },
   created() {   
     let observable = Messaging.getObservable(Messaging.MICRO_FRONTEND_CATALOG);
