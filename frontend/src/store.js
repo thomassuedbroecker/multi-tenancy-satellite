@@ -22,7 +22,7 @@ export default new Vuex.Store({
       name: "",
       idToken: "",
       accessToken: ""
-    },
+    }
   },
   mutations: {
     setAppID(state, payload) {
@@ -66,5 +66,5 @@ export default new Vuex.Store({
       state.categories = payload;
     },
   },
-  actions: {},
+  actions: {}
 });

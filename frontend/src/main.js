@@ -13,8 +13,6 @@ import AppID from 'ibmcloud-appid-js';
 
 //import { MwcTopAppBarFixed } from 'vue-material/dist/components'
 //Vue.use(MwcTopAppBarFixed)
-
-
 //import { MdButton } from 'vue-material/dist/components'
 //Vue.use(MdButton)
 
@@ -35,6 +33,8 @@ appid_init = {
   appid_clientId: window.VUE_APPID_CLIENT_ID,
   appid_discoveryEndpoint: window.VUE_APPID_DISCOVERYENDPOINT
 }
+
+console.log("--> log: appid_init", appid_init);
 
 store.commit("setAppID", appid_init);
 
@@ -68,7 +68,7 @@ async function asyncAppIDInit(appID) {
     console.log("--> log: error ", e);
     return false;
   } 
-};
+}
 
 /**********************************/
 /* Create vue appication instance
