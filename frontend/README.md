@@ -14,3 +14,8 @@ npm run serve
 ```
 npm run build
 ```
+
+### User and passwords
+
+thomas@example.com / thomas4appid
+alice@example.com / alice4appid
