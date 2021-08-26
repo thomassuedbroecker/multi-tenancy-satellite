@@ -10,6 +10,10 @@
 npm install ibmcloud-appid-js
 ```
 
+To use refresh token, you need to enable refresh token, as you see in the image below.
+
+![](./images/token-configuration.png)
+
 ### Use the App ID client SDK in Vue.js
 
 Relevant code in the `main.js` file. 
@@ -22,7 +26,7 @@ The code is structured in :
     * Renew (`appID.silentSignin()`)
 3. App ID authentication init
 4. Create vue appilcation instance
-5. Renew token in an interval
+5. Renew token in an interval (https://www.unixtimestamp.com/index.php)
 
 ```javascript
 import AppID from 'ibmcloud-appid-js';

@@ -65,6 +65,7 @@ async function asyncAppIDrefresh(appID) {
       /******************************/
       /* Authentication
       /******************************/
+      console.log("--> log: goint to update token ");
       
       let tokens = await appID.silentSignin();
       console.log("--> log: silentSignin tokens ", tokens);   
@@ -75,9 +76,11 @@ async function asyncAppIDrefresh(appID) {
         // name : tokens.idTokenPayload.given_name
       }
       store.commit("login", user_info);
+      console.log("--> log: silentSignin tokens ", tokens);
+      console.log("--> log: username : " + store.state.user);   
       return true;
     } catch (e) {
-      console.log("--> log: catch interval error ", e);
+      console.log("--> log: asyncAppIDrefresh - catch interval error ", e);
       return false;
     }
   } else {
@@ -130,19 +133,20 @@ setInterval(() => {
   console.log("--> log: token interval ");
   console.log("--> log: isAuthenticated ", store.state.user.isAuthenticated);
 
-  if (store.state.user.isAuthenticated == false) {
+  if (store.state.user.isAuthenticated == true) {
+    console.log("--> log: user logged on : " + store.state.user); 
     renew_token=asyncAppIDrefresh(appID);
     console.log("--> log: renew_token : " + renew_token);
-  } else {
-      console.log("--> log: renew_token : " + renew_token); 
+  } else {     
       user_info = {
         isAuthenticated: false,
         idToken : " ",
         accessToken: " ",
         name : " "
       }
-      store.commit("login", user_info);    
+      store.commit("login", user_info);
+      console.log("--> log: user logged on username : " + store.state.user);  
   }
-}, 10000);
+}, 40000);
 
 export { default as Messaging } from "./messaging.js";
