@@ -4,6 +4,7 @@
 
 * [App ID client SDK for Single WebPage](https://github.com/ibm-cloud-security/appid-clientsdk-js)
 * [How to implement await in JavaScript](https://basarat.gitbook.io/typescript/future-javascript/async-await)
+* [Client SDK JavaScript](https://ibm-cloud-security.github.io/appid-clientsdk-js/AppID.html#getUserInfo)
 
 ```sh
 npm install ibmcloud-appid-js
