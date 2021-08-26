@@ -1,5 +1,8 @@
 # frontend
 
+* [# Using App ID in a Vue.js front end](vue-appid-test.md)
+* [Vue using accesstoken invoke Quarkus endpoint](vue-using-accesstoken-invoke-quarkus-endpoint.md)
+
 ## Project setup
 ```
 npm install

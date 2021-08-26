@@ -1,4 +1,4 @@
-# Configure for App ID
+# Using App ID in a Vue.js front end
 
 ### Add App ID client SDK
 
