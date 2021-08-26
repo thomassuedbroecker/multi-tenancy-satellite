@@ -15,10 +15,13 @@ npm install ibmcloud-appid-js
 Relevant code in the `main.js` file. 
 The code is structured in :
 
-* Authentication init
-* Functions 
-* Authentication
-* Create vue appication instance
+1. Set variable for authentication
+2. Functions 
+  * Login
+  * Renew
+3. App ID authentication init
+4. Create vue appication instance
+5. Renew token
 
 ```javascript
 import AppID from 'ibmcloud-appid-js';
@@ -30,24 +33,6 @@ let appid_init;
 let user_info;
 
 /**********************************/
-/* App ID authentication init
-/**********************************/
-
-appid_init = {
-  //web-app-tenant-a-single
-  appid_clientId: window.VUE_APPID_CLIENT_ID,
-  appid_discoveryEndpoint: window.VUE_APPID_DISCOVERYENDPOINT
-}
-
-console.log("--> log: appid_init", appid_init);
-
-store.commit("setAppID", appid_init);
-
-let initOptions = {
-  clientId: store.state.appid_init.appid_clientId , discoveryEndpoint: store.state.appid_init.appid_discoveryEndpoint
-}
-
-/**********************************/
 /* Functions 
 /**********************************/
 async function asyncAppIDInit(appID) {
@@ -55,24 +40,77 @@ async function asyncAppIDInit(appID) {
   var appID_init_Result = await appID.init(initOptions);
   console.log("--> log: appID_init_Result ", appID_init_Result);
   
-  try {
-    /******************************/
-    /* Authentication
-    /******************************/
-    let tokens = await appID.signin();
-    console.log("--> log: tokens ", tokens);   
-    user_info = {
-      isAuthenticated: true,
-      idToken : tokens.idToken,
-      accessToken: tokens.accessToken,
-      name : tokens.idTokenPayload.given_name
+  /**********************************/
+  /* Check if the user is already authenticated
+  /**********************************/
+  if (!store.state.user.isAuthenticated) {
+    try {
+      /******************************/
+      /* Authentication
+      /******************************/
+      
+      let tokens = await appID.signin();
+      console.log("--> log: tokens ", tokens);   
+      user_info = {
+        isAuthenticated: true,
+        idToken : tokens.idToken,
+        accessToken: tokens.accessToken,
+        name : tokens.idTokenPayload.given_name
+      }
+      store.commit("login", user_info);
+      return true;
+    } catch (e) {
+      console.log("--> log: error ", e);
+      return false;
     }
-    store.commit("login", user_info);
-    return true;
-  } catch (e) {
-    console.log("--> log: error ", e);
+  }
+}
+
+async function asyncAppIDrefresh(appID) {
+  
+  if ( store.state.user.isAuthenticated == true) {
+    try {
+      /******************************/
+      /* Authentication
+      /******************************/
+      
+      let tokens = await appID.silentSignin();
+      console.log("--> log: silentSignin tokens ", tokens);   
+      user_info = {
+        isAuthenticated: true,
+        idToken : tokens.idToken,
+        accessToken: tokens.accessToken,
+        name : tokens.idTokenPayload.given_name
+      }
+      store.commit("login", user_info);
+      return true;
+    } catch (e) {
+      console.log("--> log: catch interval error ", e);
+      return false;
+    }
+  } else {
+    console.log("--> log: no refresh ");
     return false;
-  } 
+  }
+}
+
+
+
+/**********************************/
+/* App ID authentication init
+/**********************************/
+
+appid_init = {
+    //web-app-tenant-a-single
+    appid_clientId: window.VUE_APPID_CLIENT_ID,
+    appid_discoveryEndpoint: window.VUE_APPID_DISCOVERYENDPOINT
+}
+
+console.log("--> log: appid_init", appid_init);
+store.commit("setAppID", appid_init);
+
+let initOptions = {
+    clientId: store.state.appid_init.appid_clientId , discoveryEndpoint: store.state.appid_init.appid_discoveryEndpoint
 }
 
 /**********************************/
@@ -81,15 +119,40 @@ async function asyncAppIDInit(appID) {
 let appID = new AppID();
 let init_messsage = "";
 if (!(init_messsage=asyncAppIDInit(appID))) {
-  console.log("--> log: init_messsage : " + init_messsage);
-  window.location.reload();
-} else {
     console.log("--> log: init_messsage : " + init_messsage);
-    // Vue application instance
-    new Vue({
-      store,
-      router,
-      render: h => h(App)
-    }).$mount('#app')
+    window.location.reload();
+} else {
+      console.log("--> log: init_messsage : " + init_messsage);
+      // Vue application instance
+      new Vue({
+        store,
+        router,
+        render: h => h(App)
+      }).$mount('#app')
 }
+
+/**********************************/
+/* App ID authentication renew_token with silentSignin
+/**********************************/
+let renew_token;
+
+setInterval(() => {
+  console.log("--> log: token interval ");
+  console.log("--> log: isAuthenticated ", store.state.user.isAuthenticated);
+
+  if (store.state.user.isAuthenticated == false) {
+    renew_token=asyncAppIDrefresh(appID);
+    console.log("--> log: renew_token : " + renew_token);
+  } else {
+      console.log("--> log: renew_token : " + renew_token); 
+      user_info = {
+        isAuthenticated: false,
+        idToken : " ",
+        accessToken: " ",
+        name : " "
+      }
+      store.commit("login", user_info);  
+      window.location.reload();  
+  }
+}, 10000);
 ```
