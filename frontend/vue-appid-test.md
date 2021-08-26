@@ -13,15 +13,16 @@ npm install ibmcloud-appid-js
 ### Use the App ID client SDK in Vue.js
 
 Relevant code in the `main.js` file. 
+
 The code is structured in :
 
 1. Set variable for authentication
 2. Functions 
-  * Login
-  * Renew
+    * Login (`appID.Signin()`)
+    * Renew (`appID.silentSignin()`)
 3. App ID authentication init
-4. Create vue appication instance
-5. Renew token
+4. Create vue appilcation instance
+5. Renew token in an interval
 
 ```javascript
 import AppID from 'ibmcloud-appid-js';
