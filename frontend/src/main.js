@@ -71,8 +71,8 @@ async function asyncAppIDrefresh(appID) {
       user_info = {
         isAuthenticated: true,
         idToken : tokens.idToken,
-        accessToken: tokens.accessToken,
-        name : tokens.idTokenPayload.given_name
+        accessToken: tokens.accessToken
+        // name : tokens.idTokenPayload.given_name
       }
       store.commit("login", user_info);
       return true;
@@ -85,8 +85,6 @@ async function asyncAppIDrefresh(appID) {
     return false;
   }
 }
-
-
 
 /**********************************/
 /* App ID authentication init
@@ -143,8 +141,7 @@ setInterval(() => {
         accessToken: " ",
         name : " "
       }
-      store.commit("login", user_info);  
-      window.location.reload();  
+      store.commit("login", user_info);    
   }
 }, 10000);
 
