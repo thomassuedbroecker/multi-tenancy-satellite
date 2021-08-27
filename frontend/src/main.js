@@ -81,6 +81,15 @@ async function asyncAppIDrefresh(appID) {
       return true;
     } catch (e) {
       console.log("--> log: asyncAppIDrefresh - catch interval error ", e);
+      user_info = {
+        isAuthenticated: false,
+        idToken : " ",
+        accessToken: " ",
+        name : " "
+      }
+      store.commit("login", user_info);
+      console.log("--> log: silentSignin tokens ", tokens);
+      console.log("--> log: username : " + store.state.user);   
       return false;
     }
   } else {
