@@ -88,11 +88,12 @@ async function asyncAppIDrefresh(appID) {
         name : " "
       }
       store.commit("login", user_info);
-      console.log("--> log: username : " + store.state.user);   
+      console.log("--> log: username : " + store.state.user); 
+      window.location.reload();
       return false;
     }
   } else {
-    console.log("--> log: no refresh ");
+    console.log("--> log: asyncAppIDrefresh - no refresh ");
     return false;
   }
 }
@@ -155,6 +156,6 @@ setInterval(() => {
       store.commit("login", user_info);
       console.log("--> log: user logged on username : " + store.state.user);  
   }
-}, 40000);
+}, 100000);
 
 export { default as Messaging } from "./messaging.js";
