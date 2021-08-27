@@ -88,7 +88,6 @@ async function asyncAppIDrefresh(appID) {
         name : " "
       }
       store.commit("login", user_info);
-      console.log("--> log: silentSignin tokens ", tokens);
       console.log("--> log: username : " + store.state.user);   
       return false;
     }
