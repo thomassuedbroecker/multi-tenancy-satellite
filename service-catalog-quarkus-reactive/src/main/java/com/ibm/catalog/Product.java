@@ -6,7 +6,7 @@ public class Product {
 
 	public Product() {}
 	
-	public Long id;
+	public int id;
    
 	public BigDecimal price;
 

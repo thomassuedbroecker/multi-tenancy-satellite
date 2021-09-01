@@ -75,9 +75,9 @@ export default {
       loadingCategories: false,
       amountLineItems: 0,
       apiUrlCategories:
-        "http://service-catalog-quarkus-reactive-app-mod-tekton-dev.niklas-heidloff-dal12-b-162e406f043e20da9b0ef0731954a894-0000.us-south.containers.appdomain.cloud/CustomerOrderServicesWeb/jaxrs/Category",
+        process.env.catalogEndpoint + "/" + process.env.tenantId + "/CustomerOrderServicesWeb/jaxrs/Category",
       apiUrlOrders:
-        "http://localhost/CustomerOrderServicesWeb/jaxrs/Customer/Orders",
+        process.env.catalogEndpoint + "/" + process.env.tenantId + "/CustomerOrderServicesWeb/jaxrs/Customer/Orders",
     };
   },
   created() {
