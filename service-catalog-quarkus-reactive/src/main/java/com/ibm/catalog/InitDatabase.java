@@ -11,7 +11,7 @@ import java.util.concurrent.CompletionStage;
 
 @ApplicationScoped
 public class InitDatabase {
-  
+ /* 
     @Inject    
     io.vertx.mutiny.pgclient.PgPool client;
 
@@ -180,4 +180,5 @@ public class InitDatabase {
             //})
             ;            
     }
+    */
 }

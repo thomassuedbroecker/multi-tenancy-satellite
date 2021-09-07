@@ -1,7 +1,5 @@
 package com.ibm.catalog;
 
-import java.util.Collection;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +10,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "category")
-@NamedQuery(name = "category.findAll", query = "SELECT f FROM category f ORDER BY f.name")
-@NamedQuery(name = "category.findByName", query = "SELECT f FROM category f WHERE f.name=:name")
+//@NamedQuery(name = "category.findAll", query = "SELECT f FROM category f ORDER BY f.name")
+//@NamedQuery(name = "category.findByName", query = "SELECT f FROM category f WHERE f.name=:name")
 public class Category {
 
     @Id

@@ -32,9 +32,10 @@ public class ProductResource {
     @Inject
     io.vertx.mutiny.pgclient.PgPool client;
 
+    /*
     @Inject
     private InitDatabase initDatabase;
-
+    
     @PostConstruct
     public void config() {
         initDatabase.config();
@@ -169,4 +170,5 @@ public class ProductResource {
         } catch (Exception e) {
         }
     }
+    */
 }

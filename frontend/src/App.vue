@@ -3,7 +3,7 @@
   <div style="display: flex;flex-direction: row;">
     <div id="app" style="order: 1;flex-grow: 2;max-width: 300px;width:300px">
      <mwc-top-app-bar-fixed>
-      <div slot="title">Electronic and Movie Depot</div>
+      <div slot="title">{{ headline }}</div>
     </mwc-top-app-bar-fixed>
  
     <md-app>
@@ -74,10 +74,9 @@ export default {
       categories: {},
       loadingCategories: false,
       amountLineItems: 0,
-      apiUrlCategories:
-        process.env.catalogEndpoint + "/" + process.env.tenantId + "/CustomerOrderServicesWeb/jaxrs/Category",
-      apiUrlOrders:
-        process.env.catalogEndpoint + "/" + process.env.tenantId + "/CustomerOrderServicesWeb/jaxrs/Customer/Orders",
+      apiUrlCategories: window.VUE_APP_API_URL_CATEGORIES,
+      apiUrlOrders: window.VUE_APP_API_URL_ORDERS,
+      headline: window.VUE_APP_HEADLINE
     };
   },
   created() {

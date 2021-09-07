@@ -58,7 +58,7 @@ public class CategoryResource {
     public void config() {
         initDatabase.config();
     }
-    */
+   
     
     @GET
     public CompletionStage<List<Category>> get() {
@@ -101,4 +101,5 @@ public class CategoryResource {
         category.parent = row.getLong("parent");       
         return category;
     }
+     */
 }
